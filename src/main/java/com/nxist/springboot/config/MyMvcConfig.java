@@ -1,10 +1,12 @@
 package com.nxist.springboot.config;
 
+import com.nxist.springboot.component.LoginHandlerInterceptor;
 import com.nxist.springboot.component.MyLocaleResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -38,10 +40,22 @@ public class MyMvcConfig implements WebMvcConfigurer {
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("login");
                 registry.addViewController("/index.html").setViewName("login");
-                registry.addViewController("/main.html").setViewName("dashboard");//添加视图映射，当访问/main.html，来到dashboard视图
+                //添加视图映射，当访问/main.html，来到dashboard视图
+                registry.addViewController("/main.html").setViewName("dashboard");
             }
         };
         return webMvcConfigurer;
+    }
+
+    /**
+     * 注册拦截器
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //添加拦截器和排除静态资源的拦截
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/index.html","/","/user/login","/css/**","/js/**","/image/**","/webjars/**","/asserts/**");
     }
 
     @Bean

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -19,8 +20,11 @@ public class LoginController {
 //    @GetMapping
 //    @RequestMapping(value = "/user/login",method = RequestMethod.POST)
     @PostMapping("/user/login")
-    public String login(@RequestParam("username") String username, @RequestParam("password") String password, Map<String, Object> map) {
+    public String login(@RequestParam("username") String username, @RequestParam("password") String password,
+                        Map<String, Object> map, HttpSession httpSession) {
         if (!StringUtils.isEmpty(username) && "123456".equals(password)) {
+            //只有登录成功了，用户才会在session中存在
+            httpSession.setAttribute("loginUser",username);
             //登录成功，防止表单重复提交，可以重定向到主页
             return "redirect:/main.html";
         } else {
