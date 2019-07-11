@@ -54,8 +54,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //添加拦截器和排除静态资源的拦截
-        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/index.html","/","/user/login","/css/**","/js/**","/image/**","/webjars/**","/asserts/**");
+//        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+//                .excludePathPatterns("/index.html","/","/user/login","/css/**","/js/**","/image/**","/webjars/**","/asserts/**");
     }
 
     @Bean
