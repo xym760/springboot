@@ -11,6 +11,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * spring boot单元测试
  * 可以在测试期间很方便的类似编码一样进行自动注入等容器的功能
@@ -21,6 +25,10 @@ public class SpringbootApplicationTests {
 
     //记录器
     Logger logger = LoggerFactory.getLogger(getClass());
+
+    //注入数据源
+    @Autowired
+    DataSource dataSource;
 
     @Autowired
     Person person;
@@ -34,7 +42,12 @@ public class SpringbootApplicationTests {
     }
 
     @Test
-    public void contextLoads() {
+    public void contextLoads() throws SQLException {
+        //查看数据源的输出：
+        System.out.println("---------"+dataSource.getClass());
+        Connection connection = dataSource.getConnection();
+        System.out.println("---------"+connection);
+        connection.close();
 //        System.out.println(person);
         //日志的级别
         //由低到高：trace<debug<info<warn<error

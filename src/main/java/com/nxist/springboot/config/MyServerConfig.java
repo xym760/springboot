@@ -52,7 +52,7 @@ public class MyServerConfig {
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
         //定制嵌入式的Servlet容器相关的规则
         return (ConfigurableWebServerFactory factory) -> {
-            factory.setPort(8083);//设置端口为8083
+//            factory.setPort(8083);//设置端口为8083
         };
     }
 }
