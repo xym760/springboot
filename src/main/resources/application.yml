@@ -33,7 +33,7 @@ spring:
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: jk14101
-    url: jdbc:mysql://192.168.137.22:3306/jdbc
+    url: jdbc:mysql://192.168.137.22:3306/jpa
     type: com.alibaba.druid.pool.DruidDataSource
 
     initialSize: 5
@@ -52,7 +52,19 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+    #配置跟JPA相关的配置
+  jpa:
+    hibernate:
+      ddl-auto: update #更新或创建数据表
+    show-sql: true #控制台显示sql
 
+#配置schema，根据指定的sql自动创建表
 #    schema:
-#      - classpath:department.sql
+#      - classpath:sql/department.sql
+#      - classpath:sql/employee.sql
 #    initialization-mode: always
+
+#配置mybatis的配置文件和mapper文件位置，不使用注解时，就要用这种方式进行配置
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml

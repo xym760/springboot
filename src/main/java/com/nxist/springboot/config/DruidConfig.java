@@ -22,6 +22,10 @@ import java.util.Map;
 @Configuration
 public class DruidConfig {
 
+    /**
+     * 从application.yml中读取自定义的配置
+     * @return
+     */
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
     public DataSource druid() {
@@ -53,6 +57,7 @@ public class DruidConfig {
         FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setFilter(new WebStatFilter());
         Map<String, String> initParams = new HashMap<>();
+        initParams.put("exclusions", "*.js,*.css,/druid/*");//排除这些url
         bean.setInitParameters(initParams);
         bean.setUrlPatterns(Arrays.asList("/*"));
         return bean;
